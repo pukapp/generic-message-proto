@@ -231,6 +231,7 @@ message Poll {
 
 message PollContent {
   repeated string options = 1;
+  required string question = 2;
 }
 
 message PollVote {
