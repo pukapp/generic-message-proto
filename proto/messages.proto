@@ -20,6 +20,7 @@ message GenericMessage {
     Confirmation confirmation = 16;
     Reaction reaction = 17;
     Ephemeral ephemeral = 18;
+    Poll poll = 19;
   }
 }
 
@@ -219,4 +220,21 @@ enum ClientAction {
 
 message Calling {
   required string content = 1;
+}
+
+message Poll {
+  oneof type {
+    Content content = 1;
+    Vote vote = 2;
+  }
+}
+
+message Content {
+  repeated string options = 1;
+}
+
+message Vote {
+  required int32 voted_option = 1;
+  required int64 sequence = 2; // This number identifies the state of the vote for the option to resolve conflicts
+  required int64 tie_breaker = 3; // Used to decide which vote wins in case of conflict
 }
