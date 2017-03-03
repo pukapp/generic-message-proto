@@ -224,16 +224,16 @@ message Calling {
 
 message Poll {
   oneof type {
-    Content content = 1;
-    Vote vote = 2;
+    PollContent content = 1;
+    PollVote vote = 2;
   }
 }
 
-message Content {
+message PollContent {
   repeated string options = 1;
 }
 
-message Vote {
+message PollVote {
   required int32 voted_option = 1;
   required int64 sequence = 2; // This number identifies the state of the vote for the option to resolve conflicts
   required int64 tie_breaker = 3; // Used to decide which vote wins in case of conflict
