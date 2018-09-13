@@ -48,8 +48,9 @@ message Ephemeral {
 
 message Text {
   required string content = 1;
-  repeated Mention mention = 2;
+  // repeated Mention mention = 2; // deprecated to achieve backward compatibility with clients that had prototyped mentions
   repeated LinkPreview link_preview = 3;
+  repeated Mention mention = 4;
 }
 
 message Knock {
