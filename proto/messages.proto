@@ -21,7 +21,12 @@ message GenericMessage {
     Reaction reaction = 17;
     Ephemeral ephemeral = 18;
     Availability availability = 19;
+    TextJson textJson = 100;
   }
+}
+
+message TextJson {
+    required string content = 1;
 }
 
 message Availability {
@@ -159,6 +164,7 @@ message ImageAsset { // deprecated in favour of Asset.Original.ImageMetaData
   optional bytes mac_key = 9;    // deprecated - use sha256
   optional bytes mac = 10;       // deprecated - use sha256
   optional bytes sha256 = 11;      // sha256 of ciphertext
+  optional Quote quote = 100;   //新增回复图片内容
 }
 
 message Asset {
@@ -173,6 +179,7 @@ message Asset {
     }
     optional string source = 7; // link to source e.g. http://giphy.com/234245
     optional string caption = 8; // caption of the asset, e.g. "dog" for a Giphy "dog" search result
+    optional Quote quote = 100;  //新增回复文件（音频，视频）内容
   }
 
   message Preview {
