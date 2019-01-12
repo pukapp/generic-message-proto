@@ -20,8 +20,8 @@ message GenericMessage {
     Confirmation confirmation = 16;
     Reaction reaction = 17;
     Ephemeral ephemeral = 18;
-    Availability availability = 19;
-    TextJson textJson = 100;
+    Availability availability = 100;
+    TextJson textJson = 19;
   }
 }
 
