@@ -1,4 +1,7 @@
-// syntax = "proto2";
+syntax = "proto2";
+import "objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "ZM";
+option (google.protobuf.objectivec_file_options).relax_camel_case = true;
 option java_package = "com.waz.model";
 
 message GenericMessage {
