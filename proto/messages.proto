@@ -25,6 +25,7 @@ message GenericMessage {
     Ephemeral ephemeral = 18;
     Availability availability = 100;
     TextJson textJson = 19;
+    Forbid forbid = 101;
   }
 }
 
@@ -257,6 +258,11 @@ message Reaction {
   optional string emoji = 1; // some emoji reaction or the empty string to remove previous reaction(s)
   required string message_id = 2;
   optional LegalHoldStatus legal_hold_status = 3 [default = UNKNOWN]; // whether this message was sent to legal hold
+}
+
+message Forbid {
+    optional string emoji = 1; // some emoji reaction or the empty string to remove previous reaction(s)
+    required string message_id = 2;
 }
 
 enum ClientAction {
