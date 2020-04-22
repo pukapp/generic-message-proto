@@ -26,6 +26,7 @@ message GenericMessage {
     Availability availability = 100;
     TextJson textJson = 19;
     Forbid forbid = 101;
+    Mediasoup mediasoup = 102;
   }
 }
 
@@ -264,6 +265,10 @@ message Forbid {
     optional string emoji = 1; // some emoji reaction or the empty string to remove previous reaction(s)
     required string message_id = 2;
     optional string opt_name = 3;
+}
+
+message Mediasoup{
+    required string content = 1;
 }
 
 enum ClientAction {
