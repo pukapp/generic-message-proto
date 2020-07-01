@@ -1,7 +1,4 @@
-syntax = "proto2";
-import "objectivec-descriptor.proto";
-option (google.protobuf.objectivec_file_options).class_prefix = "ZM";
-option (google.protobuf.objectivec_file_options).relax_camel_case = true;
+// syntax = "proto2";
 option java_package = "com.waz.model";
 
 message GenericMessage {
@@ -23,15 +20,50 @@ message GenericMessage {
     Confirmation confirmation = 16;
     Reaction reaction = 17;
     Ephemeral ephemeral = 18;
-    Availability availability = 100;
     TextJson textJson = 19;
+
+    Composite composite = 20;
+    ButtonAction buttonAction = 21;
+    ButtonActionConfirmation buttonActionConfirmation = 22;
+
+    Availability availability = 100;
     Forbid forbid = 101;
     Mediasoup mediasoup = 102;
+
+    
   }
 }
 
 message TextJson {
     required string content = 1;
+}
+
+message Composite {
+  repeated Item items = 1;
+  optional bool expects_read_confirmation = 2 [default = false];
+  optional LegalHoldStatus legal_hold_status = 3 [default = UNKNOWN];
+
+  message Item {
+      oneof content {
+          Text text = 1;
+          Button button = 2;
+      }
+  }
+}
+
+message Button {
+  required string text = 1;
+  required string id = 2;
+}
+
+message ButtonAction {
+  required string button_id = 1;
+  required string reference_message_id = 2;
+}
+
+message ButtonActionConfirmation {
+  required string reference_message_id = 1;
+  optional string button_id = 2; // if not present, no button is accepted
 }
 
 message Availability {
@@ -134,6 +166,7 @@ message MessageEdit {
   required string replacing_message_id = 1;
   oneof content {
     Text text = 2;
+    Composite composite = 3;
     // Reply can also be edited, but the edit will only affect the Text part
   }
 }
@@ -158,7 +191,7 @@ message Location {
   required float longitude = 1;
   required float latitude = 2;
   optional string name = 3; // location description/name
-  optional int32 zoom = 4;  // google maps zoom level (check maps api documentation)
+  optional int32 zoom = 4; // google maps zoom level (check maps api documentation)
   optional bool expects_read_confirmation = 5 [default = false]; // whether the sender is expecting to receive a read confirmation
   optional LegalHoldStatus legal_hold_status = 6 [default = UNKNOWN]; // whether this message was sent to legal hold
 }
@@ -189,7 +222,7 @@ message Asset {
       VideoMetaData video = 5;
       AudioMetaData audio = 6;
     }
-    optional string source = 7;  // link to source e.g. http://giphy.com/234245
+    optional string source = 7; // link to source e.g. http://giphy.com/234245
     optional string caption = 8; // caption of the asset, e.g. "dog" for a Giphy "dog" search result
     optional Quote quote = 100;  //新增回复文件（音频，视频）内容
   }
@@ -218,9 +251,9 @@ message Asset {
   message AudioMetaData {
     optional uint64 duration_in_millis = 1;
     // repeated float normalized_loudness = 2 [packed=true]; // deprecated - Switched to bytes instead
-    optional bytes normalized_loudness = 3;     // each byte represent one loudness value as a byte (char) value.
-                                                // e.g. a 100-bytes field here represents 100 loudness values.
-                                                // Values are in chronological order and range from 0 to 255.
+    optional bytes normalized_loudness = 3; // each byte represent one loudness value as a byte (char) value.
+    // e.g. a 100-bytes field here represents 100 loudness values.
+    // Values are in chronological order and range from 0 to 255.
   }
 
   enum NotUploaded {
