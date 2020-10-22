@@ -64,6 +64,7 @@ message Text {
   optional Quote quote = 5; // if this Text is part of a MessageEdit, this field is ignored
   optional bool expects_read_confirmation = 6 [default = false]; // whether the sender is expecting to receive a read confirmation
   optional LegalHoldStatus legal_hold_status = 7 [default = UNKNOWN]; // whether this message was sent to legal hold
+  optional bool markdown = 100 [default = false];
 }
 
 message Knock {
