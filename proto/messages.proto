@@ -26,7 +26,7 @@ message GenericMessage {
     Availability availability = 100;
     TextJson textJson = 19;
     Forbid forbid = 101;
-    Mediasoup mediasoup = 102;
+    NewCalling newCalling = 102;
   }
 }
 
@@ -268,7 +268,7 @@ message Forbid {
     optional string opt_name = 3;
 }
 
-message Mediasoup{
+message NewCalling{
     required string content = 1;
 }
 
