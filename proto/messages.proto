@@ -271,7 +271,7 @@ message Forbid {
 message NewCalling {
     required string content = 1;
     required bool can_synchronize_clients = 2 [default = true]; //该消息是否需要同步到自己的其他设备中,由于voip的限制,需要此字段
-    optional bytes ios_voip_data = 3; //需要使用voip通道传输的数据
+    optional string ios_voip_string = 3; //需要使用voip通道传输的数据
 }
 
 enum ClientAction {
